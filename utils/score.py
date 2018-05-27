@@ -1,6 +1,8 @@
 #Adapted from https://github.com/FakeNewsChallenge/fnc-1/blob/master/scorer.py
 #Original credit - @bgalbraith
 
+import sklearn
+
 #LABELS = ['agree', 'disagree', 'discuss', 'unrelated']
 LABELS_RELATED = ['unrelated','related']
 LABELS = LABELS_RELATED
@@ -59,7 +61,8 @@ def report_score(actual,predicted):
     #best_score, _ = score_submission(actual,actual)
     best_score = len(actual)
 
-    print_confusion_matrix(cm)
+    #print_confusion_matrix(cm)
+    print(sklearn.metrics.confusion_matrix(actual, predicted))
     print("Score: " +str(score) + " out of " + str(best_score) + "\t("+str(score*100/best_score) + "%)")
     #return -1 # no score for binary
     return score*100/best_score

@@ -15,7 +15,11 @@ def generate_features(stances,dataset,name):
     h, b, y = [],[],[]
 
     for stance in stances:
-        y.append(LABELS.index(stance['Stance']))
+        if stance['Stance'] == "unrelated":
+            y.append(LABELS.index("unrelated"))
+        else:
+            y.append(LABELS.index("related"))
+        #y.append(LABELS.index(stance['Stance']))
         h.append(stance['Headline'])
         b.append(dataset.articles[stance['Body ID']])
 
@@ -71,7 +75,8 @@ if __name__ == "__main__":
         actual = [LABELS[int(a)] for a in y_test]
 
         fold_score, _ = score_submission(actual, predicted)
-        max_fold_score, _ = score_submission(actual, actual)
+        #max_fold_score, _ = score_submission(actual, actual)
+        max_fold_score = len(actual)
 
         score = fold_score/max_fold_score
 

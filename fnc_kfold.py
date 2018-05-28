@@ -70,7 +70,11 @@ if __name__ == "__main__":
         X_test = Xs[fold]
         y_test = ys[fold]
 
-        ros = RandomOverSampler(random_state=0)
+        class_counts = np.unique(y_train, return_counts=True)
+        class_counts = dict(zip(*class_counts))
+        class_counts[1] *= 3 # 3x as many disagrees
+
+        ros = RandomOverSampler(ratio=class_counts, random_state=0)
         X_train_resampled, y_train_resampled = ros.fit_sample(X_train, y_train)
 
         clf = GradientBoostingClassifier(n_estimators=200, random_state=14128, verbose=True)

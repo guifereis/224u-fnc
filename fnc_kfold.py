@@ -15,11 +15,11 @@ def generate_features(stances,dataset,name):
     h, b, y = [],[],[]
 
     for stance in stances:
-        if stance['Stance'] == "unrelated":
-            y.append(LABELS.index("unrelated"))
-        else:
-            y.append(LABELS.index("related"))
-        #y.append(LABELS.index(stance['Stance']))
+        #if stance['Stance'] == "unrelated":
+            #y.append(LABELS.index("unrelated"))
+        #else:
+            #y.append(LABELS.index("related"))
+        y.append(LABELS.index(stance['Stance']))
         h.append(stance['Headline'])
         b.append(dataset.articles[stance['Body ID']])
 

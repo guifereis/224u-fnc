@@ -4,21 +4,24 @@
 import sklearn
 
 #LABELS = ['agree', 'disagree', 'discuss', 'unrelated']
-LABELS_RELATED = ['unrelated','related']
-LABELS = LABELS_RELATED
+#LABELS_RELATED = ['unrelated','related']
+LABELS = ['agree', 'disagree', 'discuss']
 RELATED = LABELS[0:3]
 
 def score_submission(gold_labels, test_labels):
     score = 0.0
-    cm = [[0, 0],
-          [0, 0]]
+    cm = [[0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]]
 
     for i, (g, t) in enumerate(zip(gold_labels, test_labels)):
         g_stance, t_stance = g, t
-        if g_stance != "unrelated":
-            g_stance = "related"
-        if t_stance != "unrelated":
-            t_stance = "related"
+        
+
+        #if g_stance != "unrelated":
+        #    g_stance = "related"
+        #if t_stance != "unrelated":
+        #    t_stance = "related"
         if g_stance == t_stance:
             score += 1 # accuracy
         #if g_stance == t_stance:

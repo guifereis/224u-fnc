@@ -1,5 +1,5 @@
 from csv import DictReader
-
+from tqdm import tqdm, trange
 
 class DataSet():
     def __init__(self, name="train", path="fnc-1"):
@@ -10,6 +10,17 @@ class DataSet():
         stances = name+"_stances.csv"
 
         self.stances = self.read(stances)
+
+        print("# stances before: "+str(len(self.stances)))
+        #print(self.stances[0:5])
+        #exit(0)
+        new_stances = []
+        for s_idx in trange(len(self.stances)):
+            if self.stances[s_idx]["Stance"] != "unrelated":
+                new_stances.append(self.stances[s_idx])
+        self.stances = new_stances
+        print("# stances AFTER: "+str(len(self.stances)))
+
         articles = self.read(bodies)
         self.articles = dict()
 

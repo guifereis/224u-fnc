@@ -106,12 +106,12 @@ def report_score(actual,predicted):
     np.set_printoptions(precision=2)
     # Plot non-normalized confusion matrix
     plt.figure()
-    confusion_matrix_pretty_print(cnf_matrix, classes=['related', 'unrelated'],
+    confusion_matrix_pretty_print(cnf_matrix, classes=['agree', 'disagree', 'discuss'],
                           title='Confusion matrix, without normalization')
 
     # Plot normalized confusion matrix
     plt.figure()
-    confusion_matrix_pretty_print(cnf_matrix, classes=['related', 'unrelated'], normalize=True,
+    confusion_matrix_pretty_print(cnf_matrix, classes=['agree', 'disagree', 'discuss'], normalize=True,
                           title='Normalized confusion matrix')
 
     plt.show()

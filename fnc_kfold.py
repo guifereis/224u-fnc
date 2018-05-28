@@ -10,6 +10,8 @@ from utils.score import report_score, LABELS, score_submission
 
 from utils.system import parse_params, check_version
 
+from imblearn.over_sampling import RandomOverSampler
+
 
 def generate_features(stances,dataset,name):
     h, b, y = [],[],[]
@@ -68,8 +70,12 @@ if __name__ == "__main__":
         X_test = Xs[fold]
         y_test = ys[fold]
 
+        ros = RandomOverSampler(random_state=0)
+        X_train_resampled, y_train_resampled = ros.fit_sample(X_train, y_train)
+
         clf = GradientBoostingClassifier(n_estimators=200, random_state=14128, verbose=True)
-        clf.fit(X_train, y_train)
+        #clf.fit(X_train, y_train)
+        clf.fit(X_train_resampled, y_train_resampled)
 
         predicted = [LABELS[int(a)] for a in clf.predict(X_test)]
         actual = [LABELS[int(a)] for a in y_test]

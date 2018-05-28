@@ -107,8 +107,8 @@ if __name__ == "__main__":
     print("")
 
     #Run on competition dataset
-    predicted = [LABELS[int(a)] for a in best_fold.predict(X_competition)]
-    actual = [LABELS[int(a)] for a in y_competition]
+    #predicted = [LABELS[int(a)] for a in best_fold.predict(X_competition)]
+    #actual = [LABELS[int(a)] for a in y_competition]
 
-    print("Scores on the test set")
-    report_score(actual,predicted)
+    #print("Scores on the test set")
+    #report_score(actual,predicted)

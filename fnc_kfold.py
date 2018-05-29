@@ -9,8 +9,9 @@ from utils.generate_test_splits import kfold_split, get_stances_for_folds
 from utils.score import report_score, LABELS, score_submission
 
 from utils.system import parse_params, check_version
-
 from imblearn.over_sampling import RandomOverSampler
+from sklearn.metrics import classification_report
+
 
 
 def generate_features(stances,dataset,name):
@@ -103,6 +104,9 @@ if __name__ == "__main__":
 
     print("Scores on the dev set")
     report_score(actual,predicted)
+    print("")
+    print("")
+    print(classification_report(actual, predicted))
     print("")
     print("")
 

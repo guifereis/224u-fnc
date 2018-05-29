@@ -7,6 +7,7 @@ from feature_engineering import word_overlap_features
 from utils.dataset import DataSet
 from utils.generate_test_splits import kfold_split, get_stances_for_folds
 from utils.score import report_score, LABELS, score_submission
+from sklearn.metrics import classification_report
 
 from utils.system import parse_params, check_version
 
@@ -93,6 +94,11 @@ if __name__ == "__main__":
 
     print("Scores on the dev set")
     report_score(actual,predicted)
+
+    print("")
+    print("")
+    print(classification_report(predicted, actual))
+
     print("")
     print("")
 

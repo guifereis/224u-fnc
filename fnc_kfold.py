@@ -9,8 +9,9 @@ from utils.generate_test_splits import kfold_split, get_stances_for_folds
 from utils.score import report_score, LABELS, score_submission
 
 from utils.system import parse_params, check_version
-
 from imblearn.over_sampling import RandomOverSampler
+from sklearn.metrics import classification_report
+
 
 
 def generate_features(stances,dataset,name):
@@ -70,7 +71,11 @@ if __name__ == "__main__":
         X_test = Xs[fold]
         y_test = ys[fold]
 
-        ros = RandomOverSampler(random_state=0)
+        class_counts = np.unique(y_train, return_counts=True)
+        class_counts = dict(zip(*class_counts))
+        class_counts[1] *= 3 # 3x as many disagrees
+
+        ros = RandomOverSampler(ratio=class_counts, random_state=0)
         X_train_resampled, y_train_resampled = ros.fit_sample(X_train, y_train)
 
         clf = GradientBoostingClassifier(n_estimators=200, random_state=14128, verbose=True)
@@ -101,10 +106,13 @@ if __name__ == "__main__":
     report_score(actual,predicted)
     print("")
     print("")
+    print(classification_report(actual, predicted))
+    print("")
+    print("")
 
     #Run on competition dataset
-    predicted = [LABELS[int(a)] for a in best_fold.predict(X_competition)]
-    actual = [LABELS[int(a)] for a in y_competition]
+    #predicted = [LABELS[int(a)] for a in best_fold.predict(X_competition)]
+    #actual = [LABELS[int(a)] for a in y_competition]
 
-    print("Scores on the test set")
-    report_score(actual,predicted)
+    #print("Scores on the test set")
+    #report_score(actual,predicted)

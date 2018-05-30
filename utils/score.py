@@ -101,6 +101,8 @@ def report_score(actual,predicted):
     #best_score, _ = score_submission(actual,actual)
     best_score = len(actual)
 
+    print("Score: " +str(score) + " out of " + str(best_score) + "\t("+str(score*100/best_score) + "%)")
+
     #print_confusion_matrix(cm)
     cnf_matrix = sklearn.metrics.confusion_matrix(actual, predicted)
     np.set_printoptions(precision=2)
@@ -117,8 +119,6 @@ def report_score(actual,predicted):
     plt.show()
 
 
-    print("Score: " +str(score) + " out of " + str(best_score) + "\t("+str(score*100/best_score) + "%)")
-    #return -1 # no score for binary
     return score*100/best_score
 
 
